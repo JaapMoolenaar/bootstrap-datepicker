@@ -1,22 +1,9 @@
 # bootstrap-datepicker
 
-This is a fork of Stefan Petre's [original code](http://www.eyecon.ro/bootstrap-datepicker/);
-thanks go to him for getting this thing started!
+This is a fork of https://github.com/eternicode/bootstrap-datepicker which is a fork of Stefan Petre's [original code](http://www.eyecon.ro/bootstrap-datepicker/);
+All credits go out to them
 
-Please note that this fork is not used on Stefan's page, nor is it maintained or contributed to by him.
-
-Versions are incremented according to [semver](http://semver.org/).
-
-## Links
-
-* [Online Demo](http://eternicode.github.io/bootstrap-datepicker/)
-* [Online Docs](http://bootstrap-datepicker.readthedocs.org/) (ReadTheDocs.com)
-* [Google Group](https://groups.google.com/group/bootstrap-datepicker/)
-* [Travis CI ![Build Status](https://travis-ci.org/eternicode/bootstrap-datepicker.png?branch=master)](https://travis-ci.org/eternicode/bootstrap-datepicker)
-
-## Development
-
-Once you cloned the repo, you'll need to install [grunt](http://gruntjs.com/) and the development dependencies using [npm](https://npmjs.org/).
-
-    npm install -g grunt-cli
-    npm install
+## Changes
+The options I added are
+*   maxViewMode for limiting the viewmode to, say, year/month selection
+*   oneYearOnly for automatically ( based on start-/endDate's year ) generating a calendar for one year only, So next / prev year selection is disabled and you can accept format's like dd-mm ( without year ).
