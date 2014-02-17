@@ -185,6 +185,23 @@
 					o.minViewMode = 0;
 			}
 
+			switch (o.maxViewMode){
+				case 1:
+				case 'months':
+					o.maxViewMode = 1;
+					break;
+				case 0:
+				case 'days':
+					o.maxViewMode = 0;
+					break;
+				default:
+					o.maxViewMode = 2;
+			}
+
+			if(o.oneYearOnly && o.maxViewMode > 1) {
+				o.maxViewMode = 1;
+			}
+
 			o.startView = Math.max(o.startView, o.minViewMode);
 
 			// true, false, or Number > 0
@@ -232,8 +249,6 @@
 				} else if (o.endDate !== Infinity){
 					oneYear = o.endDate.getFullYear();
 				}
-				
-				console.log(oneYear);
 
 				if (o.startDate === -Infinity){
 					o.startDate = new Date('1 Jan '+oneYear+' 12:00:00 +0000');
@@ -242,7 +257,6 @@
 				if (o.endDate === Infinity){
 					o.endDate = new Date('31 Dec '+oneYear+' 12:00:00 +0000');
 				}
-				console.log(o.startDate, o.endDate);
 			}
 
 			o.daysOfWeekDisabled = o.daysOfWeekDisabled||[];
@@ -767,7 +781,7 @@
 				cleartxt = dates[this.o.language].clear || dates['en'].clear || '',
 				tooltip;
 			this.picker.find('.datepicker-days thead th.datepicker-switch')
-						.text(dates[this.o.language].months[month]+' '+year);
+						.text(dates[this.o.language].months[month]+(!this.o.oneYearOnly ? ' '+year : ''));
 			this.picker.find('tfoot th.today')
 						.text(todaytxt)
 						.toggle(this.o.todayBtn !== false);
@@ -837,6 +851,11 @@
 							.text(year)
 							.end()
 						.find('span').removeClass('active');
+
+
+			if(this.o.oneYearOnly) {
+				this.picker.find('.datepicker-months').find('th:eq(1)').css({visibility: 'hidden'});
+			}
 
 			$.each(this.dates, function(i, d){
 				if (d.getUTCFullYear() === year)
@@ -1252,7 +1271,7 @@
 
 		showMode: function(dir){
 			if (dir){
-				this.viewMode = Math.max(this.o.minViewMode, Math.min(2, this.viewMode + dir));
+				this.viewMode = Math.max(this.o.minViewMode, Math.min(this.o.maxViewMode, this.viewMode + dir));
 			}
 			this.picker
 				.find('>div')
@@ -1421,6 +1440,7 @@
 		keyboardNavigation: true,
 		language: 'en',
 		minViewMode: 0,
+		maxViewMode: 2,
 		multidate: false,
 		multidateSeparator: ',',
 		orientation: "auto",
