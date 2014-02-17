@@ -852,9 +852,9 @@
 							.end()
 						.find('span').removeClass('active');
 
-
+			// Hide the top row
 			if(this.o.oneYearOnly) {
-				this.picker.find('.datepicker-months').find('th:eq(1)').css({visibility: 'hidden'});
+				this.picker.find('.datepicker-months').find('thead, thead tr, thead th').css({height: 0, padding: 0, 'font-size': 0});
 			}
 
 			$.each(this.dates, function(i, d){
