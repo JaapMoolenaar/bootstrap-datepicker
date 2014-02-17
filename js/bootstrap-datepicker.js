@@ -224,6 +224,27 @@
 				}
 			}
 
+			if (o.oneYearOnly){
+				var oneYear = (new Date()).getFullYear();
+
+				if (o.startDate !== -Infinity){
+					oneYear = o.startDate.getFullYear();
+				} else if (o.endDate !== Infinity){
+					oneYear = o.endDate.getFullYear();
+				}
+				
+				console.log(oneYear);
+
+				if (o.startDate === -Infinity){
+					o.startDate = new Date('1 Jan '+oneYear+' 12:00:00 +0000');
+				}
+
+				if (o.endDate === Infinity){
+					o.endDate = new Date('31 Dec '+oneYear+' 12:00:00 +0000');
+				}
+				console.log(o.startDate, o.endDate);
+			}
+
 			o.daysOfWeekDisabled = o.daysOfWeekDisabled||[];
 			if (!$.isArray(o.daysOfWeekDisabled))
 				o.daysOfWeekDisabled = o.daysOfWeekDisabled.split(/[,\s]*/);
@@ -1408,7 +1429,8 @@
 		startView: 0,
 		todayBtn: false,
 		todayHighlight: false,
-		weekStart: 0
+		weekStart: 0,
+		oneYearOnly: false
 	};
 	var locale_opts = $.fn.datepicker.locale_opts = [
 		'format',
